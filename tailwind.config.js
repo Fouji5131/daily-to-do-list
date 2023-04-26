@@ -4,7 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "light-blue": "#F5F9FF",
+        // "light-blue": "#F5F9FF",
+        "light-blue": "#131414",
+      },
+      fontFamily: {
+        bouncy: ["Bouncy", "cursive"],
       },
     },
   },
