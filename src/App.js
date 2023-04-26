@@ -20,10 +20,24 @@ function App() {
     setInputValue("");
   };
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
 
   const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
+    var updatedList = [...isChecked];
+    if (event.target.isChecked) {
+      updatedList = [...isChecked, event.target.value];
+    } else {
+      updatedList.splice(isChecked.indexOf(event.target.value), 1);
+    }
+    setIsChecked(updatedList);
+
+    // setIsChecked(event.target.checked);
+  };
+
+  var testCheck = (item) => {
+    // return isChecked.includes(item) ? "line-through" : "no-underline";
+    return isChecked.includes(item) ? "line-through" : "none";
+    // isChecked.includes(item) ? "checked-item" : "not-checked-item";
   };
 
   const deleteAllToDos = () => {
@@ -72,29 +86,32 @@ function App() {
             <div className="flex flex-col h-full space-y-1 xl:px-5 xl:space-y-2 overflow-y-auto overflow-x-auto">
               {items.map((item, index) => {
                 return (
-                  <label
-                    htmlFor="box"
-                    key={index}
-                    id={index}
-                    className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
-                  >
-                    <input
-                      id="box"
+                  <div>
+                    <label
+                      htmlFor="box"
                       key={index}
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
-                      className="accent-green-500 h-5 w-5 xl:h-6 xl:w-6 mr-2 xl:mr-4 rounded-2xl"
-                    />
-                    <h1
-                      style={{
-                        textDecoration: isChecked ? "line-through" : "none",
-                        color: isChecked ? "black" : "white",
-                      }}
+                      id={index}
+                      className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
                     >
-                      {item}
-                    </h1>
-                  </label>
+                      <input
+                        id="box"
+                        key={index}
+                        type="checkbox"
+                        checked={isChecked[index]}
+                        onChange={handleCheckboxChange}
+                        className="accent-green-500 h-5 w-5 xl:h-6 xl:w-6 mr-2 xl:mr-4 rounded-2xl"
+                      />
+                      <h1
+                        className={testCheck(item)}
+                        style={{
+                          textDecoration: testCheck(item),
+                          //   color: isChecked ? "black" : "white",
+                        }}
+                      >
+                        {item}
+                      </h1>
+                    </label>
+                  </div>
                 );
               })}
             </div>
