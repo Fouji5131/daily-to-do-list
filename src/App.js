@@ -15,7 +15,8 @@ function App() {
   const noOfItems = items.length;
   const noOfCompleted = items.filter((item) => item.isChecked).length;
   const noOfUnCompleted = noOfItems - noOfCompleted;
-  const progress = Math.trunc((noOfCompleted / noOfItems) * 100);
+  const progress =
+    items.length == 0 ? "0" : Math.trunc((noOfCompleted / noOfItems) * 100);
 
   const isDisabled = inputValue.trim() === "";
   const buttonStyle = isDisabled
