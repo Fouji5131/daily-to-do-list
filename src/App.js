@@ -153,7 +153,7 @@ function App() {
                             value={editLabel}
                             onChange={handleEditLabel}
                           />
-                          <div className="space-x-3">
+                          <div className="space-x-4">
                             <button
                               className="hover:scale-125"
                               onClick={handleSaveEdit}
@@ -194,7 +194,7 @@ function App() {
                             </h1>
                           </label>
 
-                          <div className="space-x-1">
+                          <div className="space-x-4">
                             <button
                               className="hover:scale-125"
                               onClick={() => handleEdit(item.id, item.label)}
@@ -220,10 +220,10 @@ function App() {
             <div className="flex flex-col items-center space-y-2 text-black">
               <div className="w-full border-b-2 border-black"></div>
               <div className="w-full flex flex-col sm:flex-row justify-between ">
-                <h1>Total {noOfItems}</h1>
-                <h1>Completed {noOfCompleted}</h1>
-                <h1>Uncompleted {noOfUnCompleted}</h1>
-                {/* <h1>Progress {progress}%</h1> */}
+                <h1>Total: {noOfItems}</h1>
+                <h1>Completed: {noOfCompleted}</h1>
+                <h1>Uncompleted: {noOfUnCompleted}</h1>
+                <h1>Progress: {progress}%</h1>
               </div>
               <button
                 className="w-1/4 py-0 xl:px-2 xl:py-0 rounded-md bg-blue-400 hover:scale-125"
