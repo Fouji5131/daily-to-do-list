@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./components/ui/card";
 
 function App() {
@@ -49,11 +49,23 @@ function App() {
         return item;
       })
     );
+    // reorderedItems = [...items];
   }
 
   const deleteAllToDos = () => {
     setItems([]);
   };
+
+  // useEffect(() => {
+  //   const uncheckedItems = items.filter((item) => !item.checked);
+  //   const checkedItems = items.filter((item) => item.checked);
+  //   const reorderedItems = [...uncheckedItems, ...checkedItems];
+  //   setItems(reorderedItems);
+  // }, [items, setItems]);
+
+  const uncheckedItems = items.filter((item) => !item.checked);
+  const checkedItems = items.filter((item) => item.checked);
+  const reorderedItems = [...uncheckedItems, ...checkedItems];
 
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-light-blue">
@@ -93,10 +105,13 @@ function App() {
                 }
               }
             >
-              <ul className="space-y-1 xl:px-5 xl:py-2 xl:space-y-2">
+              <ul className="space-y-1 xl:space-y-2 ">
                 {items.map((item) => {
                   return (
-                    <li key={item.id}>
+                    <li
+                      key={item.id}
+                      className="flex justify-between xl:px-3 xl:py-2  bg-white/10 rounded-3xl"
+                    >
                       <label
                         htmlFor={item.id}
                         className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
@@ -114,12 +129,13 @@ function App() {
                             textDecoration: item.isChecked
                               ? "line-through"
                               : "none",
-                            color: item.isChecked ? "black" : "white",
+                            color: item.isChecked ? "gray" : "black",
                           }}
                         >
                           {item.label}
                         </h1>
                       </label>
+                      <h1 className="text-md xl:text-lg font-normal">hello</h1>
                     </li>
                   );
                 })}
