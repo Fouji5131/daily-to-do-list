@@ -132,7 +132,7 @@ function App() {
                 <h1>Total {noOfItems}</h1>
                 <h1>Completed {noOfCompleted}</h1>
                 <h1>Uncompleted {noOfUnCompleted}</h1>
-                <h1>Progress {progress}%</h1>
+                {/* <h1>Progress {progress}%</h1> */}
               </div>
               <button
                 className="w-1/4 py-0 xl:px-2 xl:py-0 rounded-md bg-blue-400 hover:scale-110"
