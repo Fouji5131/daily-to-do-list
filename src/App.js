@@ -26,6 +26,20 @@ function App() {
       }
     : {};
 
+  // Load tasks from localStorage on initial render
+  useEffect(() => {
+    const savedItems = localStorage.getItem("items");
+    if (savedItems) {
+      setItems(JSON.parse(savedItems));
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+    console.log(items);
+  }, [items]);
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setItems((prevItems) => [
@@ -103,17 +117,17 @@ function App() {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-light-blue">
+    <div className="w-screen h-screen flex items-center justify-center  bg-blue-300">
       <Card>
-        <div className="space-y-5 h-full">
-          <h1 className="font-bold text-3xl sm:text-4xl xl:text-6xl text-center font-bouncy">
-            Daily To Do List
-          </h1>
+        <div className="flex flex-col justify-between w-full h-full xl:w-1/2 font-mono p-5 rounded-3xl shadow-2xl bg-white">
+          <div className="space-y-5">
+            <h1 className="font-bold text-3xl sm:text-4xl xl:text-5xl text-center font-bouncy ">
+              Daily To Do List
+            </h1>
 
-          <div className="flex flex-col justify-between h-5/6 space-y-5 font-mono">
             <form
               onSubmit={handleFormSubmit}
-              className="flex justify-between p-1 xl:p-2 border-2 border-black rounded-md space-x-5"
+              className="flex justify-between p-1 xl:p-2 border-2 border-blue-300 rounded-2xl space-x-5"
             >
               <input
                 className="w-3/4 focus:outline-none bg-transparent placeholder:text-black/50"
@@ -123,7 +137,7 @@ function App() {
                 placeholder="Add new list item"
               />
               <button
-                className="px-2 py-1 xl:px-5 xl:py-2 rounded-md bg-blue-400 text-black"
+                className="px-2 py-1 xl:px-5 xl:py-2 rounded-xl bg-blue-300 text-white"
                 style={buttonStyle}
                 type="submit"
                 disabled={isDisabled}
@@ -131,109 +145,120 @@ function App() {
                 Add
               </button>
             </form>
-
-            <div
-              className="flex flex-col h-full overflow-y-auto overflow-x-auto"
-              style={
-                {
-                  // boxShadow: "inset 0px 0px 36px 0px rgba(0, 0, 0, 0.3)",
-                }
-              }
-            >
-              <ul className="space-y-1 xl:space-y-2 ">
-                {items.map((item, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="flex justify-between px-3 py-2  bg-white/10 rounded-md"
-                    >
-                      {editId === item.id ? (
-                        <div className="flex justify-between w-full">
-                          <input
-                            className="w-4/5 pl-1 focus:outline-none bg-white/20 rounded-md"
-                            value={editLabel}
-                            onChange={handleEditLabel}
-                          />
-                          <div className="space-x-4">
-                            <button
-                              className="hover:scale-125"
-                              onClick={handleSaveEdit}
-                            >
-                              <img className="w-4 h-4" src={Tick} alt="" />
-                            </button>
-                            <button
-                              className="hover:scale-125"
-                              onClick={handleCancelEdit}
-                            >
-                              <img className="w-4 h-4" src={Cross} alt="" />
-                            </button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex justify-between w-full">
-                          <label
-                            htmlFor={item.id}
-                            className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
-                          >
-                            <input
-                              id={item.id}
-                              type="checkbox"
-                              checked={item.completed}
-                              onChange={() => handleCheckboxClick(item.id)}
-                              className="accent-green-500 h-5 w-5 xl:h-6 xl:w-6 mr-2 rounded-2xl"
-                            />
-                            <h1
-                              // className={testCheck(item)}
-                              style={{
-                                textDecoration: item.isChecked
-                                  ? "line-through"
-                                  : "none",
-                                color: item.isChecked ? "gray" : "black",
-                              }}
-                            >
-                              {item.label}
-                            </h1>
-                          </label>
-
-                          <div className="space-x-4">
-                            <button
-                              className="hover:scale-125"
-                              onClick={() => handleEdit(item.id, item.label)}
-                            >
-                              <img className="w-5 h-5" src={EditPic} alt="" />
-                            </button>
-
-                            <button
-                              className="hover:scale-125"
-                              onClick={() => deleteToDo(index)}
-                            >
-                              <img className="w-5 h-5" src={DeletePic} alt="" />
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            <div className="flex flex-col items-center space-y-2 text-black">
-              <div className="w-full border-b-2 border-black"></div>
-              <div className="w-full flex flex-col sm:flex-row justify-between ">
-                <h1>Total: {noOfItems}</h1>
-                <h1>Completed: {noOfCompleted}</h1>
-                <h1>Uncompleted: {noOfUnCompleted}</h1>
-                <h1>Progress: {progress}%</h1>
-              </div>
-              <button
-                className="w-1/4 py-0 xl:px-2 xl:py-0 rounded-md bg-blue-400 hover:scale-125"
-                onClick={deleteAllToDos}
-              >
-                Clear All
-              </button>
-            </div>
           </div>
+
+          <div className="flex flex-col items-center space-y-5 text-black">
+            <div className="w-full border-b-2 border-blue-300"></div>
+            <div className="">
+              <div className="grid md:grid-cols-2 md:gap-x-28">
+                <h1>
+                  Total: <span className="font-bold">{noOfItems}</span>
+                </h1>
+                <h1>
+                  Completed: <span className="font-bold">{noOfCompleted}</span>
+                </h1>
+                <h1>
+                  Uncompleted:{" "}
+                  <span className="font-bold">{noOfUnCompleted}</span>
+                </h1>
+                <h1>
+                  Progress: <span className="font-bold">{progress}%</span>
+                </h1>
+              </div>
+            </div>
+            <button
+              className="w-2/4 xl:w-1/4 py-0 xl:px-2 xl:py-0 rounded-md bg-blue-300 text-white hover:scale-125"
+              onClick={deleteAllToDos}
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="flex flex-col overflow-y-auto overflow-x-auto w-full h-full xl:w-1/2 p-5 rounded-3xl shadow-2xl bg-white"
+          style={
+            {
+              // boxShadow: "inset 0px 0px 36px 0px rgba(0, 0, 0, 0.3)",
+            }
+          }
+        >
+          <ul className=" space-y-4">
+            {items.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className="flex justify-between px-3 py-5 w-full rounded-2xl shadow-lg bg-blue-300"
+                >
+                  {editId === item.id ? (
+                    <div className="flex justify-between w-full">
+                      <input
+                        className="w-4/5 pl-1 focus:outline-none bg-white/20 rounded-md"
+                        value={editLabel}
+                        onChange={handleEditLabel}
+                      />
+                      <div className="space-x-4">
+                        <button
+                          className="hover:scale-125"
+                          onClick={handleSaveEdit}
+                        >
+                          <img className="w-4 h-4" src={Tick} alt="" />
+                        </button>
+                        <button
+                          className="hover:scale-125"
+                          onClick={handleCancelEdit}
+                        >
+                          <img className="w-4 h-4" src={Cross} alt="" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex justify-between w-full">
+                      <label
+                        htmlFor={item.id}
+                        className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
+                      >
+                        <input
+                          id={item.id}
+                          type="checkbox"
+                          checked={item.completed}
+                          onChange={() => handleCheckboxClick(item.id)}
+                          className="accent-white h-5 w-5 xl:h-6 xl:w-6 mr-2 rounded-xl"
+                        />
+                        <h1
+                          // className={testCheck(item)}
+                          style={{
+                            textDecoration: item.isChecked
+                              ? "line-through"
+                              : "none",
+                            color: item.isChecked ? "gray" : "black",
+                          }}
+                        >
+                          {item.label}
+                        </h1>
+                      </label>
+
+                      <div className="space-x-4">
+                        <button
+                          className="hover:scale-125"
+                          onClick={() => handleEdit(item.id, item.label)}
+                        >
+                          <img className="w-5 h-5" src={EditPic} alt="" />
+                        </button>
+
+                        <button
+                          className="hover:scale-125"
+                          onClick={() => deleteToDo(index)}
+                        >
+                          <img className="w-5 h-5" src={DeletePic} alt="" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </Card>
     </div>
