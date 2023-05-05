@@ -148,7 +148,7 @@ function App() {
           </div>
 
           <div className="flex flex-col items-center space-y-5 text-black">
-            <div className="w-full border-b-2 border-blue-300"></div>
+            <div className="w-4/5 border-b-2 border-blue-300"></div>
             <div className="">
               <div className="grid md:grid-cols-2 md:gap-x-28">
                 <h1>
