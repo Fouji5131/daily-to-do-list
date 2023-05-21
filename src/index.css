@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #fff;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.5);
+    border-radius: 100vh;
+    border: 2px solid #fff;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgb(59, 130, 246);
+  }
+}
+
 @font-face {
   font-family: "Bouncy";
   src: url("./assets/fonts/Bouncy-PERSONAL_USE_ONLY.otf");

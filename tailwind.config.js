@@ -6,11 +6,13 @@ module.exports = {
       colors: {
         // "light-blue": "#F5F9FF",
         "light-blue": "#131414",
+        "lt-blue": "rgb(59, 130, 246)",
       },
       fontFamily: {
         bouncy: ["Bouncy", "cursive"],
       },
     },
   },
+  variants: {},
   plugins: [],
 };
