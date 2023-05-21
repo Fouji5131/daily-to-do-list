@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../ui/card";
 
 const ListDetails = (props) => {
@@ -49,6 +49,10 @@ const ListDetails = (props) => {
 
     console.log("hi");
   };
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(props.items));
+  }, [props.items]);
 
   return (
     <Card>

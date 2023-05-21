@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListDetails from "./components/todoList/listDetails";
 import ItemsList from "./components/todoList/itemsList";
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const saved = localStorage.getItem("items");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
 
   const itemValue = (items) => {
     setItems(items);
   };
+
+  // useEffect(() => {
+  //   const tasks = JSON.parse(localStorage.getItem("items"));
+  //   if (tasks) {
+  //     setItems(tasks);
+  //   }
+  // }, []);
 
   return (
     <div className="w-screen h-screen flex flex-col items-center space-y-5 py-10 bg-blue-300 scrollbar overflow-y-auto overflow-x-auto">
