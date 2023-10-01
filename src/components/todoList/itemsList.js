@@ -94,10 +94,10 @@ function ItemsList(props) {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex justify-between w-full">
+                  <div className="flex justify-between w-full py-5">
                     <label
                       htmlFor={item.id}
-                      className="flex text-md xl:text-lg font-normal h-6 hover:text-blue-400"
+                      className="flex text-md xl:text-lg font-normal w-4/6 md:w-5/6 h-6 hover:text-blue-400"
                     >
                       <input
                         id={item.id}
@@ -106,7 +106,8 @@ function ItemsList(props) {
                         onChange={() => handleCheckboxClick(item.id)}
                         className="accent-white h-5 w-5 xl:h-6 xl:w-6 mr-2 rounded-xl"
                       />
-                      <h1
+                      <p
+                        className="w-full h-auto "
                         style={{
                           textDecoration: item.isChecked
                             ? "line-through"
@@ -114,8 +115,8 @@ function ItemsList(props) {
                           color: item.isChecked ? "gray" : "black",
                         }}
                       >
-                        {item.label}
-                      </h1>
+                        <span className="break-all h-full">{item.label}</span>
+                      </p>
                     </label>
 
                     <div className="space-x-4">
