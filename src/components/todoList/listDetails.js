@@ -5,10 +5,8 @@ const ListDetails = (props) => {
   const noOfItems = props.items.length;
   const noOfCompleted = props.items.filter((item) => item.isChecked).length;
   const noOfUnCompleted = noOfItems - noOfCompleted;
-  const progress =
-    props.items.length === 0
-      ? "0"
-      : Math.trunc((noOfCompleted / noOfItems) * 100);
+  const percentage = (noOfCompleted / noOfItems) * 100;
+  const progress = props.items.length === 0 ? "0" : percentage.toFixed(1);
 
   const deleteAllToDos = () => {
     props.getItemsValue([]);
