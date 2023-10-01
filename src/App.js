@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ListDetails from "./components/todoList/listDetails";
 import ItemsList from "./components/todoList/itemsList";
 
@@ -6,7 +6,7 @@ function App() {
   const [items, setItems] = useState(() => {
     const saved = localStorage.getItem("items");
     const initialValue = JSON.parse(saved);
-    return initialValue || "";
+    return initialValue || [];
   });
 
   const itemValue = (items) => {

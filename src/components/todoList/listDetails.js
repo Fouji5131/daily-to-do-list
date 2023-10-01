@@ -6,7 +6,7 @@ const ListDetails = (props) => {
   const noOfCompleted = props.items.filter((item) => item.isChecked).length;
   const noOfUnCompleted = noOfItems - noOfCompleted;
   const progress =
-    props.items.length == 0
+    props.items.length === 0
       ? "0"
       : Math.trunc((noOfCompleted / noOfItems) * 100);
 
